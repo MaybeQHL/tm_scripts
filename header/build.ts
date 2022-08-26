@@ -1,4 +1,4 @@
-import {GmFunctions, UserScript} from "./UserScript";
+import { GmFunctions, UserScript } from "./UserScript";
 
 const fs = require('fs')
 const path = require('path')
@@ -33,6 +33,9 @@ export default (script: UserScript, destName: string) => {
     }
     if (script.version) {
         result += '// @version'.padEnd(padLen, ' ') + script.version + '\n'
+    }
+    if (script.version) {
+        result += '// @license'.padEnd(padLen, ' ') + script.license + '\n'
     }
     if (script.author) {
         result += '// @author'.padEnd(padLen, ' ') + script.author + '\n'
