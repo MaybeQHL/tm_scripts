@@ -1,11 +1,68 @@
-// 引入第三方模块：
-// 例如引入lodash，在写代码时有代码提示
-import * as _ from 'lodash'
-// 引入项目中的文件：
-import Test from './test'
+import Danmaku from 'danmaku';
+import utils from './utils';
 
-// => { '4': 1, '6': 2 }
-console.log(_.countBy([6.1, 4.2, 6.3], Math.floor))
 
-const test = new Test()
-test.doTest()
+let danmaku: Danmaku;
+let currentUrl;
+
+const initDm = async () => {
+
+    const mediaInfo = utils.getMediaInfo();
+
+    const dms = await utils.getDanmu(mediaInfo.name, mediaInfo.episode)
+
+    const videoEl = document.querySelector('video');
+
+    const videoWrapEl = videoEl.parentElement;
+
+    let dmWrapEl;
+
+
+    // 容器样式
+    const classStr = `.videoWrapEl{position:absolute;top:0;left:0;right:0;height:${videoWrapEl.clientHeight / 2}px;line-height:1.2em;} .videoWrapEl div {
+        
+    }`;
+
+    utils.addCss(classStr)
+
+    dmWrapEl = document.createElement('div')
+
+    dmWrapEl.classList.add('videoWrapEl')
+
+    videoWrapEl.append(dmWrapEl)
+
+    danmaku = null;
+
+    danmaku = new Danmaku({
+        container: dmWrapEl,
+        media: videoEl,
+        comments: dms,
+        // engine: 'canvas',
+    });
+
+    const resize = () => {
+        danmaku.resize();
+    }
+
+    window.removeEventListener('resize', resize)
+
+    // 窗口大小改变重置弹幕
+    window.addEventListener('resize', resize)
+
+}
+
+const initEpisodeChange = () => {
+    currentUrl = window.location.href;
+    document.addEventListener('click', async (e) => {
+        if (window.location.href != currentUrl) {
+            // currentUrl = window.location.href;
+            window.location.reload();
+
+        }
+
+    })
+}
+
+initDm();
+
+initEpisodeChange();

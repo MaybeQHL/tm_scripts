@@ -5,9 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "webpack",
+    "build": "npm run build:header && webpack",
     "build:header": "ts-node header/index.ts",
-    "sync": "webpack --watch --sync yes",
+    "sync": "npm run build:header && webpack --watch --sync yes",
     "start:server": "node server.js"
   },
   "author": "",
@@ -35,6 +35,9 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "comment-core-library": "^0.11.1",
+    "danmaku": "^2.0.4",
     "lodash": "^4.17.21"
   },
   "browserslist": [

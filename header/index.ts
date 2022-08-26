@@ -1,16 +1,18 @@
-import {GmFunctions, RunAt, UserScript} from "./UserScript";
+import { GmFunctions, RunAt, UserScript } from "./UserScript";
 import build from "./build";
 
 const script: UserScript = {
-    name: 'hello world',
-    namespace: 'https://github.com/xcr1234',
-    description: '一个hello world，油猴脚本脚手架',
-    version: '1.0.0',
-    includes: ['*://*'],
+    name: '爱弹幕',
+    namespace: 'https://github.com/MaybeQHL/tm_scripts',
+    description: 'H5播放器自动装载弹幕',
+    version: '1.0.8',
+    includes: ['https://ddys2.me/*', 'https://ddys.tv/*'],
     grants: [
         GmFunctions.unsafeWindow
     ],
-    runAt: RunAt.document_end
+    runAt: RunAt.document_end,
+    resources: [
+    ]
 }
 
-build(script,'app_header.js')
+build(script, 'app_header.js')
